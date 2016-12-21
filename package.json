@@ -1,6 +1,6 @@
 {
   "name": "persistent-log",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "this is a simple demo of an append-only log with writes committed to disk",
   "repository": "jsdnxx/persistent-log",
   "main": "index.js",
