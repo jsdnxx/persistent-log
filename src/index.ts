@@ -1,6 +1,5 @@
 import {Readable} from 'stream'
 import * as fs from 'fs'
-import { parse } from 'ldjson-stream'
 import * as path from 'path'
 import { EventEmitter } from 'events'
 import * as through from 'through2'
