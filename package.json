@@ -6,13 +6,15 @@
   "main": "index.js",
   "scripts": {
     "start": "tsc && node obj/example.js",
-    "start:example": "tsc && node obj/example.js"
+    "start:example": "tsc && node obj/example.js",
+    "start:example:service": "tsc && node obj/example.service.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "binary-split": "^1.0.3",
     "bs58": "^4.0.0",
+    "concat-stream": "^1.6.0",
     "express": "^4.14.0",
     "through2": "^2.0.3"
   },
