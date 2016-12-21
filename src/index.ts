@@ -122,7 +122,8 @@ export default class Log {
    * returns a ReadableStream of objects
    */
   stream (fromSerializedOffset?: string): Readable {
-    let fromOffset = 0
+    console.log('do', )
+    let fromOffset = deserializeOffset(this.meta, fromSerializedOffset) || 0
     let availOffset = 0
     let lastOffset = 0
 
@@ -158,4 +159,15 @@ export default class Log {
 
 export function serializeOffset (epoch, base, offset) {
   return bs58.encode(new Buffer(JSON.stringify({epoch, base, offset})))
+}
+
+export function deserializeOffset (meta, serializedOffset: string) {
+  if (!serializeOffset) return 0
+  const epochs = Object.keys(meta)
+  const data = JSON.parse(bs58.decode(serializedOffset).toString())
+  console.log('dod', data, meta)
+  if (data.epoch === meta.latest.epoch) {
+    return data.offset
+  }
+  throw new Error('i havent figured out offsets from different epochs yet bc its late')
 }

@@ -22,13 +22,25 @@ export default class LogService {
   private setupRoutes () {
 
     this.app.get('/tail', (req, res) => {
-      this.log.stream()
+      const { from } = req.query
+      console.log('tailing', {from})
+      this.log.stream(from)
         .pipe(through.obj(function (chunk, enc, cb) {
           const offset = serializeOffset(chunk.meta.epoch, chunk.meta.base, chunk.offset)
           this.push(JSON.stringify({offset, obj: chunk.obj}) + '\n')
           cb()
         }))
         .pipe(res)
+    })
+
+    this.app.post('/truncate', (req, res) => {
+      this.log.truncate().then(() => {
+        res.end()
+      })
+      .catch((e) => {
+        console.log('error truncating')
+        res.status(500).end()
+      })
     })
 
     this.app.post('/', (req, res) => {
